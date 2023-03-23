@@ -1,0 +1,18 @@
+<div class="container">
+<h1>Actualizar afición</h1>
+
+<form action="/aficion/u" method="post">
+	Nombre
+	<input type="text" name="nombre" required="required" th:value="${aficion.nombre}"/>
+	<br/>
+
+	<input type="hidden" name="idAficion" th:value="${aficion.id}"/>
+	
+	<input type="submit"/>
+	<br/>
+</form>
+
+<form action="/aficion/r">
+	<input type="submit" value="Cancelar"/>
+</form>
+</div>

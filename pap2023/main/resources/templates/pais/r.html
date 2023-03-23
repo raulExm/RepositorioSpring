@@ -1,0 +1,64 @@
+<div class="container">
+<h1>Lista de países</h1>
+
+<form action="/pais/c">
+	<input type="submit" value="Nuevo país"/>
+</form>
+
+
+<form action="/">
+	<input type="submit" value="Menú principal"/>
+</form>
+
+<table class="table table-striped table-hover">
+	<tr>
+		<th>Acción</th>
+		<th>Nombre</th>
+		<th># nacidos</th>
+		<th># residentes</th>
+		<th>Nacidos</th>
+		<th>Residentes</th>
+	</tr>
+
+	<tr th:each=" pais : ${paises}">
+		<td>
+			<div class="row">
+				<div class="col">
+    			<form action="/pais/u">
+        			<input type="hidden" th:value="${pais.id}" name="id"/>
+        			<button onclick="submit()">
+        				<img src="/img/lapiz.png" width="20" height="20"/>
+        			</button>
+    			</form>
+    			</div>
+    		
+				<div class="col">
+    			<form action="/pais/d" method="post">
+    				<input type="hidden" th:value="${pais.id}" name="id"/>
+    				<button onclick="submit()">
+    					<img src="/img/basura.png" width="20" height="20"/>
+    				</button>
+    			</form>
+    			</div>
+			</div>
+		</td>
+		
+		<td th:text="${pais.nombre}"/>
+		
+		<td th:text="${pais.nacidos.size()}"></td>
+
+		<td th:text="${pais.residentes.size()}"></td>
+
+		<td>--</td>
+		
+		<td>--</td>
+		
+	</tr>
+
+	
+	
+		
+	
+	
+</table>
+</div>

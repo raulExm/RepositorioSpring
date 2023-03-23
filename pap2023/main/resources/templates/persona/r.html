@@ -1,0 +1,67 @@
+<div class="container">
+	<h1>Lista de personas</h1>
+
+	<form action="/persona/c">
+		<input type="submit" value="Nueva persona" />
+	</form>
+
+
+	<form action="/">
+		<input type="submit" value="Menú principal" />
+	</form>
+
+	<table class="table table-striped table-hover">
+		<tr>
+			<th>Acción</th>
+			<th>Foto</th>
+			<th>Nombre (loginname)</th>
+			<th>Fecha de nacimiento</th>
+			<th>País de nacimiento</th>
+			<th>País de residencia</th>
+			<th>Gustos</th>
+			<th>Odios</th>
+		</tr>
+
+		<tr th:each=" persona : ${ personas }">
+			<td>
+				<div class="row">
+					<div class="col">
+						<form action="/persona/u">
+							<input type="hidden" th:value="${persona.id}" name="id" />
+							<button onclick="submit()">
+								<img src="/img/lapiz.png" width="20" height="20" />
+							</button>
+						</form>
+					</div>
+
+					<div class="col">
+						<form action="/persona/d" method="post">
+							<input type="hidden" th:value="${persona.id}" name="id" />
+							<button onclick="submit()">
+								<img src="/img/basura.png" width="20" height="20" />
+							</button>
+						</form>
+					</div>
+				</div>
+			</td>
+			
+			<td> <img th:src=" ${persona.extension == null || persona.extension.isEmpty() ? '/img/silueta.jpg' : uriIMG + 'user-' + persona.id + '.' + persona.extension }  " width="30" height="30"/> </td>
+
+			<td th:text="|${persona.nombre} (${persona.loginname})|" />
+
+			<td th:text="|${persona.fnac?.getDayOfMonth()} de ${persona.fnac?.getMonth()} de ${persona.fnac?.getYear()}|"> </td>
+			<td th:text="${ persona.nace==null ? 'Apátrida' : persona.nace.nombre }"/>
+
+			<td th:text="${persona.vive==null ? 'Sin hogar' : persona.vive.nombre }"/>
+			
+			<td>
+				<th:block th:each=" gusto : ${persona.gustos}" th:text="|${gusto.nombre} |"/>
+			</td>
+			
+			<td>
+				<th:block th:each=" odio : ${persona.odios}" th:text="|${odio.nombre} |"/>
+			</td>
+
+		</tr>
+	</table>
+</div>

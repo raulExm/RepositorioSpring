@@ -1,0 +1,101 @@
+<div class="container">
+	<h1>Crear persona</h1>
+
+	<form action="/persona/c" method="post" enctype="multipart/form-data">
+		
+		<script>
+   		 $(window).on("load",(function(){
+   		 $(function() {
+   		 $('#id-foto').change(function(e) {addImage(e);});
+   		 function addImage(e){
+   			var file = e.target.files[0],
+   			imageType = /image.*/;
+   			if (!file.type.match(imageType)) return;
+   			var reader = new FileReader();
+   			reader.onload = fileOnload;
+   			reader.readAsDataURL(file);
+   		}
+   		function fileOnload(e) {
+   		var result=e.target.result;
+   		$('#id-out-foto').attr("src",result);
+   		}});}));
+		</script>
+
+		
+		Foto
+		<input id="id-foto" type="file" name="foto"/>
+		<br/>
+
+		<img class="offset-1 col-2" id="id-out-foto"
+			width="3%" height="3%"
+			src="/assets/img/fotos/foto-0.png"
+			alt="NO FOTO"/>
+		<br/>
+
+		Nombre
+		<input type="text" name="nombre" required="required" autofocus="autofocus" />
+		<br />
+
+		Loginame
+		<input type="text" name="loginname" required="required" />
+		<br />
+		
+		Contraseña
+		<input type="password" name="password" required="required" />
+		<br />
+		
+		Fecha de nacimiento
+		<input type="date" name="fnac" required="required">
+		<br/>
+		
+		País de nacimiento
+		<select name="idPaisNace">
+			<th:block th:each=" pais : ${paises} ">
+				<option th:value="${pais.id}" th:text="${pais.nombre}" />
+			</th:block>
+		</select>
+		<br />
+
+		País de residencia
+		<select name="idPaisResidencia">
+			<th:block th:each=" pais : ${paises} ">
+				<option th:value="${pais.id}" th:text="${pais.nombre}" />
+			</th:block>
+		</select>
+		<br />
+
+		<fieldset>
+			<legend>
+				Aficiones que me gustan
+			</legend>
+			
+			<th:block th:each="aficion : ${aficiones}">
+				<input th:id="|idAficionGusta-${aficion.id}|" type="checkbox" name="idGustos[]" th:value="${aficion.id}"/>
+				<label th:for="|idAficionGusta-${aficion.id}|" th:text="${aficion.nombre}"/>
+			</th:block>
+			
+		</fieldset>
+		
+		
+		<fieldset>
+			<legend>
+				Aficiones que aborrezco
+			</legend>
+			
+			<th:block th:each="aficion : ${aficiones}">
+				<input th:id="|idAficionOdio-${aficion.id}|" type="checkbox" name="idOdios[]" th:value="${aficion.id}"/>
+				<label th:for="|idAficionOdio-${aficion.id}|" th:text="${aficion.nombre}"/>
+			</th:block>
+			
+		</fieldset>
+		
+
+		<input type="submit" />
+		<br />
+	</form>
+
+	<form action="/persona/r">
+
+		<input type="submit" value="Cancelar" />
+	</form>
+</div>

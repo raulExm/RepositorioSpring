@@ -1,0 +1,18 @@
+<div class="container">
+<h1>Actualizar país</h1>
+
+<form action="/pais/u" method="post">
+	Nombre
+	<input type="text" name="nombre" required="required" th:value="${pais.nombre}"/>
+	<br/>
+
+	<input type="hidden" name="idPais" th:value="${pais.id}"/>
+	
+	<input type="submit"/>
+	<br/>
+</form>
+
+<form action="/pais/r">
+	<input type="submit" value="Cancelar"/>
+</form>
+</div>
